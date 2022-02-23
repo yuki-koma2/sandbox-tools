@@ -7,6 +7,8 @@ export const parameters = {
     },
   },
 }
+// TODO: (yuki-koma2) 画像が表示されない問題がある
+
 // Object.defineProperty(nextImage, 'default', {
 //   configurable: true,
 //   value: props => <img {...props} />
