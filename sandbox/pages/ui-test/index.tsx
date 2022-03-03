@@ -1,11 +1,17 @@
 import {NextPage} from "next";
 import styled from  "styled-components";
+import Link from 'next/link'
+
+
 
 const buttonTest: NextPage  = () => {
 return (<Wrapper>
     <Title>
         Hello World!
     </Title>
+    <Link href={''} passHref>
+        <StyledLink>name</StyledLink>
+    </Link>
 </Wrapper>);
 }
 
@@ -22,3 +28,7 @@ const Wrapper = styled.section`
   padding: 4em;
   background: papayawhip;
 `;
+
+const StyledLink = styled.a`
+  color: red;
+`
