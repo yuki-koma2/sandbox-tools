@@ -22,8 +22,8 @@ jobs:
         - name: Current branch name
           run: |
             echo " ${{ steps.branch-name.outputs.current_branch }}"
-        - name: chack branch name upto master
-          if: StartsWith('${{steps.branch-name.outputs.current_branch}}' , 'hotfix') || startsWith('${{steps.branch-name.outputs.current_branch}}', 'release') 
+        - name: chack branch name to master
+          if: StartsWith(steps.branch-name.outputs.current_branch , 'hotfix') || startsWith(steps.branch-name.outputs.current_branch, 'release') 
           id: name_check
           run: |
             echo "Running on branch: ${{ steps.branch-name.outputs.current_branch }}"
