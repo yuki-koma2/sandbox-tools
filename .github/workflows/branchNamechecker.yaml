@@ -29,8 +29,10 @@ jobs:
             echo "Running on branch: ${{ steps.branch-name.outputs.current_branch }}"
             echo "this branch name is collect."
         - name: Error message
-          if: steps.name_chack.conclusion  == 'skipped'
+#           if: steps.name_check.conclusion  == 'skipped'
+          if: always()
           run: |
+            echo "${{steps.name_check.conclusion }}"
             echo "this branch ${{ steps.branch-name.outputs.current_branch }} is not valid"
             echo "please rename branch."
             echo "release/** or hotfix/**"
