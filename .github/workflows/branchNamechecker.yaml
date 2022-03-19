@@ -1,4 +1,4 @@
-
+# 試しに作ってみただけなので、使わない想定。ただ、これを機にgithub flowの開発にしてもいいかも。
 name: "Branch Name checker"
 on:
   workflow_dispatch:
