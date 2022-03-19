@@ -1,4 +1,5 @@
 # 試しに作ってみただけなので、使わない想定。ただ、これを機にgithub flowの開発にしてもいいかも。
+# PRになっていなかったので再トライ
 name: "Branch Name checker"
 on:
   workflow_dispatch:
