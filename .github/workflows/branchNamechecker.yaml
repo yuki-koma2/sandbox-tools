@@ -32,5 +32,6 @@ jobs:
           if: steps.name_check.conclusion == 'skipped'
           run: |
             echo "this branch ${{ steps.branch-name.outputs.current_branch }} is not valid"
-            exit "please rename branch. release/** or hotfix/**"
+            echo "please rename branch. release/** or hotfix/**"
+            exit 1
 
