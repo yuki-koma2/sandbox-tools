@@ -1,0 +1,37 @@
+
+name: "Branch Name checker"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  
+jobs:
+  branchNameCheckJob:
+      name: branch name cheker
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get branch names
+          id: branch-name
+          uses: tj-actions/branch-names@v5.1
+        - name: Current branch name
+          run: |
+            echo " ${{ steps.branch-name.outputs.current_branch }}"
+        - name: chack branch name to master
+          if: StartsWith(steps.branch-name.outputs.current_branch , 'hotfix') || startsWith(steps.branch-name.outputs.current_branch, 'release') 
+          id: name_check
+          run: |
+            echo "Running on branch: ${{ steps.branch-name.outputs.current_branch }}"
+            echo "this branch name is collect."
+        - name: Error message
+          if: steps.name_check.conclusion == 'skipped'
+          run: |
+            echo "this branch ${{ steps.branch-name.outputs.current_branch }} is not valid"
+            echo "please rename branch. release/** or hotfix/**"
+            exit 1
+
