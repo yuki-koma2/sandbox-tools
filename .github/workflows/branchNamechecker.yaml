@@ -26,7 +26,7 @@ jobs:
           if: always()
           run: |
             echo "Running on branch: ${{ steps.branch-name.outputs.current_branch }}"
-            tartsWith(steps.branch-name.outputs.current_branch  , 'hotfix') || startsWith(steps.branch-name.outputs.current_branch  , 'release') 
+            StartsWith(steps.branch-name.outputs.current_branch  , 'hotfix') || startsWith(steps.branch-name.outputs.current_branch  , 'release') 
             echo "this branch name is collect."
 #           if:  startsWith(steps.branch-name.outputs.current_branch  , 'hotfix') || startsWith(steps.branch-name.outputs.current_branch  , 'release') 
 #           id: name_chack 
