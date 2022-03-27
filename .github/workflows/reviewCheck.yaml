@@ -23,7 +23,7 @@ jobs:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'BotReviewed') }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo bot is stated review.
+      - run: echo bot is started review.
 
 # check diff first. and add label
   labeler:
