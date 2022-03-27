@@ -13,10 +13,17 @@ jobs:
 # test is ready?
   readyForTestChecker:
     runs-on: ubuntu-latest
-    if: ${{ !(github.event.pull_request.draft == true && contains(github.event.pull_request.labels.*.name, 'stop_ci'))}}
+    if: ${{!(github.event.pull_request.draft == true && contains(github.event.pull_request.labels.*.name, 'stop_ci'))}}
     steps:
       - run: echo this pull request is ready for review by team1
 
+# BOT is reviewed ? or review required
+  botReviewedChecker:
+    needs: readyForTestChecker
+    runs-on: ubuntu-latest
+      if: ${{ contains(github.event.pull_request.labels.*.name, 'BotReviewed')) }}
+      steps:
+        - run: echo bot is stated review.
 
 # check diff first. and add label
   labeler:
@@ -24,7 +31,7 @@ jobs:
         contents: read
         pull-requests: write
       runs-on: ubuntu-latest
-      needs: readyForTestChecker
+      needs: botReviewedChecker
       steps:
         - uses: actions/labeler@v4
           with:
@@ -34,6 +41,7 @@ jobs:
 
 # lint checker
   eslint:
+    needs: botReviewedChecker
     name: ESLint
     runs-on: ubuntu-latest
     working-directory: sandbox
