@@ -86,7 +86,7 @@ jobs:
             });
             
             const botComment = comments.find(comment => comment.user.id === 41898282);                                                                  
-            const commentBody = `👋 check is done `
+            const commentBody = `👋 check is done ` + ${{ env.GIT_DIFF }}
             
             if (botComment) {
                 await github.rest.issues.updateComment({
