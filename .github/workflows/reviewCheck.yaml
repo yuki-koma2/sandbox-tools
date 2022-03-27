@@ -53,6 +53,7 @@ jobs:
           FILES: |
             yarn.lock
             .eslintrc
+       - run: echo '${{ env.GIT_DIFF }}' | jq .      
       # キャッシュとかは後回し
       - name: Install Package dependencies
         working-directory: sandbox
@@ -86,7 +87,7 @@ jobs:
             });
             
             const botComment = comments.find(comment => comment.user.id === 41898282);                                                                  
-            const commentBody = `👋 check is done \n ${{ env.GIT_DIFF }}`
+            const commentBody = `👋 check is done `
             
             if (botComment) {
                 await github.rest.issues.updateComment({
