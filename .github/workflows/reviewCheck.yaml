@@ -54,7 +54,7 @@ jobs:
             yarn.lock
             .eslintrc
           # RELATIVE: 'sandbox'
-      - run: echo '${{ env.GIT_DIFF }}' | jq .      
+      - run: echo '${{ env.GIT_DIFF }}' | jq .
       # キャッシュとかは後回し
       - name: Install Package dependencies
         working-directory: sandbox
@@ -88,14 +88,13 @@ jobs:
             });
             
             const botComment = comments.find(comment => comment.user.id === 41898282);                                                                  
-            const commentBody = `👋 check is done `
             
             if (botComment) {
                 await github.rest.issues.updateComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   comment_id: botComment.id,
-                  body: commentBody
+                  body: `👋 first check is done `
                 })
                github.rest.issues.addLabels({
                 issue_number: context.issue.number,
@@ -108,6 +107,6 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.number,
-                body:  commentBody
+                body: `👋 recheck is done `
               })
             }
