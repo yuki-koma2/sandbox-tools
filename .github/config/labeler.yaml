@@ -1,0 +1,6 @@
+flyway:
+  - mysql/flyway/**/*
+  - mysql/flyway/**/*
+terraform:
+  - lambda/**/*
+  - terraform/**/*
