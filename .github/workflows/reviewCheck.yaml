@@ -56,7 +56,7 @@ jobs:
       # キャッシュとかは後回し
       - name: echo diff files
         run: | 
-          - echo ${{ env.GIT_DIFF }}
+          - echo `${{ env.GIT_DIFF }}`
       - name: Install Package dependencies
         working-directory: sandbox
         run: yarn install
