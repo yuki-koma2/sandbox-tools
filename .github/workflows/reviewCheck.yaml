@@ -44,7 +44,6 @@ jobs:
     needs: botReviewedChecker
     name: ESLint
     runs-on: ubuntu-latest
-    working-directory: sandbox
     steps:
       - uses: actions/checkout@v2
       - uses: technote-space/get-diff-action@v6
@@ -59,9 +58,11 @@ jobs:
         run: | 
           - echo ${{ env.GIT_DIFF }}
       - name: Install Package dependencies
+        working-directory: sandbox
         run: yarn install
         if: env.GIT_DIFF
       - name: Check code style
+        working-directory: sandbox
         # Check only source files with differences
         run: yarn lint ${{ env.GIT_DIFF_FILTERED }}
         if: env.GIT_DIFF && !env.MATCHED_FILES
