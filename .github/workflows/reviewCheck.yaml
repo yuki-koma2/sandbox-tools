@@ -53,7 +53,7 @@ jobs:
           FILES: |
             yarn.lock
             .eslintrc
-       - run: echo '${{ env.GIT_DIFF }}' | jq .      
+      - run: echo '${{ env.GIT_DIFF }}' | jq .      
       # キャッシュとかは後回し
       - name: Install Package dependencies
         working-directory: sandbox
