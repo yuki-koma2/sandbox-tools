@@ -20,10 +20,10 @@ jobs:
 # BOT is reviewed ? or review required
   botReviewedChecker:
     needs: readyForTestChecker
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'BotReviewed')) }}
     runs-on: ubuntu-latest
-      if: ${{ contains(github.event.pull_request.labels.*.name, 'BotReviewed')) }}
-      steps:
-        - run: echo bot is stated review.
+    steps:
+      - run: echo bot is stated review.
 
 # check diff first. and add label
   labeler:
