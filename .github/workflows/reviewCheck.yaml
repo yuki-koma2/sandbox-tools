@@ -70,7 +70,8 @@ jobs:
 #   output result
   commentResult:
     runs-on: ubuntu-latest
-    needs: 
+    if: always()
+    needs:
       - labeler
       - eslint
     permissions:
