@@ -1,0 +1,190 @@
+name: review check bot
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+env:
+  TZ: "Asia/Tokyo"
+  NODE_VERSION: "16.14.0"
+
+jobs:
+
+# test is ready?
+  readyForTestChecker:
+    runs-on: ubuntu-latest
+    if: ${{!(github.event.pull_request.draft == true && contains(github.event.pull_request.labels.*.name, 'stop_ci'))}}
+    steps:
+      - run: echo this pull request is ready for review
+
+# BOT is reviewed ? or review required
+  botReviewedChecker:
+    needs: readyForTestChecker
+#     if: ${{ !contains(github.event.pull_request.labels.*.name, 'BotReviewed') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo bot is started review.
+
+# check diff first. and add label
+  labeler:
+      permissions:
+        contents: read
+        pull-requests: write
+      runs-on: ubuntu-latest
+      needs: botReviewedChecker
+      steps:
+        - uses: actions/labeler@v4
+          with:
+            repo-token: "${{ secrets.GITHUB_TOKEN }}"
+            configuration-path: ".github/config/labeler.yaml"
+            sync-labels: true
+
+# front 
+## 余白の管理子コンポーネントに余白がない。
+## テーマにない色。カラーコードのべた書き
+## import先、ファイルの置き場所。
+
+# front checker
+  front:
+    needs: botReviewedChecker
+    name: frontEnd Checker
+    runs-on: ubuntu-latest
+    outputs:
+      outputDiff: ${{ steps.diffFiles.outputs.diffs }}
+    steps:
+      ## setup for test
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            +(src|__tests__)/**/*.+(ts|tsx)
+          FILES: |
+            yarn.lock
+            .eslintrc
+          RELATIVE: 'sandbox'
+      - name: out put diff 
+        id: diffFiles
+        run:  echo "::set-output name=diffs::${{ env.GIT_DIFF }}"    
+      
+      ## cache yarn
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: get yarn cache dir path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"    
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Package dependencies
+        working-directory: sandbox
+        run: yarn install
+#         if: env.GIT_DIFF
+
+      ## lintがとおること
+      ## format 
+      - name: Check code style and lint
+        working-directory: sandbox
+        run: yarn lint        
+        # Check only source files with differences
+#         run: yarn lint ${{ env.GIT_DIFF_FILTERED }}
+#         if: env.GIT_DIFF && !env.MATCHED_FILES
+      ## tscが通ること
+      - name: tsc
+        working-directory: sandbox
+        run: yarn tsc
+        ## testがとおること
+#       - name: test 
+#         working-directory: sandbox
+#         run: yarn test
+# coverageもみたい。
+# 
+
+
+# backend
+## ㏒に個人情報が出ていないなど、㏒の情報チェック
+## トランザクション管理
+
+
+# api 
+## 互換性チェック。できるのかな…
+## 命名規則。これはできそう。
+
+# common
+## 責務分離、命名？
+## エラーハンドリング…これもまずはどのような方針なのかを決めないといけない。言語化
+## 重複,DRYなコード
+## モジュールの変更検知。別のモジュールにも修正が必要なのでは？という提案
+
+# 特定のラベルがついていた場合、あるファイルが更新されていること。差分があること。
+## ddl to jooq generate
+## release順番やそのルール
+
+# playbookの有無。名前のルールがないとみるの難しそう。
+
+
+# インフラ
+## 色々観点があるのでおいおいやる。
+
+
+
+
+
+#   output result
+## 実行結果をどうすれば渡せるのかを確認する。
+  commentResult:
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - labeler
+      - front
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@v6
+        env: 
+          DIFF_RESULT: ${{needs.front.outputs.outputDiff}}
+        with:
+          script: |
+            const { DIFF_RESULT } = process.env
+            // Get the existing comments.
+            const {data: comments} = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.payload.number,
+            });
+            
+            const botComment = comments.find(comment => comment.user.id === 41898282);        
+            const commentBody = `Hello 👋 recheck is done ! (${{ github.sha }}) 
+              diff is ...
+               ${DIFF_RESULT}
+             `
+            
+            if (botComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: commentBody
+                })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.number,
+                body: `👋 first check is done `
+              })
+            }
+            
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['BotReviewed']
+              })
