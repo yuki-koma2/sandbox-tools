@@ -61,7 +61,8 @@ jobs:
             yarn.lock
             .eslintrc
           RELATIVE: 'sandbox'
-      - run: echo ${{ env.GIT_DIFF }} | jq .
+      - run: echo ${{ env.GIT_DIFF }}
+#       | jq .
       
       ## cache yarn
       - uses: actions/setup-node@v2
