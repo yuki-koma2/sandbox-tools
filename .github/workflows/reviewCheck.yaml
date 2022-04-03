@@ -69,8 +69,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: get yarn cache dir path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name : yarn cache        
+        run: echo "::set-output name=dir::$(yarn cache dir)"    
       - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -141,7 +140,7 @@ jobs:
     if: always()
     needs:
       - labeler
-      - eslint
+      - front
     permissions:
       contents: read
       pull-requests: write
