@@ -159,7 +159,7 @@ jobs:
             const botComment = comments.find(comment => comment.user.id === 41898282);        
             const commentBody = `Hello 👋 recheck is done ! (${{ github.sha }}) 
               diff is ...
-               ${env.DIFF_RESULT}
+               ${DIFF_RESULT}
              `
              
             
