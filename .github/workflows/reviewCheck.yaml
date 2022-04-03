@@ -7,6 +7,7 @@ on:
 
 env:
   TZ: "Asia/Tokyo"
+  NODE_VERSION: "16.14.0"
 
 jobs:
 
@@ -39,12 +40,18 @@ jobs:
             configuration-path: ".github/config/labeler.yaml"
             sync-labels: true
 
-# lint checker
-  eslint:
+# front 
+## 余白の管理子コンポーネントに余白がない。
+## テーマにない色。カラーコードのべた書き
+## import先、ファイルの置き場所。
+
+# front checker
+  front:
     needs: botReviewedChecker
-    name: ESLint
+    name: frontEnd Checker
     runs-on: ubuntu-latest
     steps:
+      ## setup for test
       - uses: actions/checkout@v2
       - uses: technote-space/get-diff-action@v6
         with:
@@ -55,18 +62,80 @@ jobs:
             .eslintrc
           # RELATIVE: 'sandbox'
       - run: echo '${{ env.GIT_DIFF }}' | jq .
-      # キャッシュとかは後回し
+      
+      ## cache yarn
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: get yarn cache dir path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name : yarn cache        
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Install Package dependencies
         working-directory: sandbox
         run: yarn install
-        if: env.GIT_DIFF
-      - name: Check code style
+#         if: env.GIT_DIFF
+
+      ## lintがとおること
+      ## format 
+      - name: Check code style and lint
         working-directory: sandbox
+        run: yarn lint        
         # Check only source files with differences
-        run: yarn lint ${{ env.GIT_DIFF_FILTERED }}
-        if: env.GIT_DIFF && !env.MATCHED_FILES
+#         run: yarn lint ${{ env.GIT_DIFF_FILTERED }}
+#         if: env.GIT_DIFF && !env.MATCHED_FILES
+      ## tscが通ること
+      - name: tsc
+        working-directory: sandbox
+        run: yarn tsc
+        ## testがとおること
+#       - name: test 
+#         working-directory: sandbox
+#         run: yarn test
+# coverageもみたい。
+# 
+
+
+# backend
+## ㏒に個人情報が出ていないなど、㏒の情報チェック
+## トランザクション管理
+
+
+# api 
+## 互換性チェック。できるのかな…
+## 命名規則。これはできそう。
+
+# common
+## 責務分離、命名？
+## エラーハンドリング…これもまずはどのような方針なのかを決めないといけない。言語化
+## 重複,DRYなコード
+## モジュールの変更検知。別のモジュールにも修正が必要なのでは？という提案
+
+# 特定のラベルがついていた場合、あるファイルが更新されていること。差分があること。
+## ddl to jooq generate
+## release順番やそのルール
+
+# playbookの有無。名前のルールがないとみるの難しそう。
+
+
+# インフラ
+## 色々観点があるのでおいおいやる。
+
+
+
+
+
+
 
 #   output result
+## 実行結果をどうすれば渡せるのかを確認する。
   commentResult:
     runs-on: ubuntu-latest
     if: always()
