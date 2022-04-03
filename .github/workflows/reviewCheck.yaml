@@ -62,7 +62,6 @@ jobs:
             .eslintrc
           RELATIVE: 'sandbox'
       - run: echo ${{ env.GIT_DIFF }}
-#       | jq .
       
       ## cache yarn
       - uses: actions/setup-node@v2
@@ -132,8 +131,6 @@ jobs:
 
 
 
-
-
 #   output result
 ## 実行結果をどうすれば渡せるのかを確認する。
   commentResult:
@@ -145,10 +142,13 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    env: 
+      DIFF_RESULT: ${{ env.GIT_DIFF }}
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
+            const { DIFF_RESULT } = process.env
             // Get the existing comments.
             const {data: comments} = await github.rest.issues.listComments({
             owner: context.repo.owner,
@@ -176,6 +176,9 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.number,
-                body: `👋 recheck is done `
+                body: `👋 recheck is done 
+                diff is ...
+                ${DIFF_RESULT}
+                `
               })
             }
