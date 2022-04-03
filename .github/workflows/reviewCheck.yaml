@@ -161,6 +161,7 @@ jobs:
               diff is ...
                ${DIFF_RESULT}
              `
+             console.log(DIFF_RESULT)
              
             
             if (botComment) {
