@@ -60,7 +60,7 @@ jobs:
           FILES: |
             yarn.lock
             .eslintrc
-          # RELATIVE: 'sandbox'
+          RELATIVE: 'sandbox'
       - run: echo '${{ env.GIT_DIFF }}' | jq .
       
       ## cache yarn
