@@ -156,29 +156,31 @@ jobs:
             issue_number: context.payload.number,
             });
             
-            const botComment = comments.find(comment => comment.user.id === 41898282);                                                                  
+            const botComment = comments.find(comment => comment.user.id === 41898282);        
+            const commentBody = `Hello 👋 recheck is done ! (${{ github.sha }}) 
+              diff is ...
+             `
+             + DIFF_RESULT
             
             if (botComment) {
                 await github.rest.issues.updateComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   comment_id: botComment.id,
-                  body: `👋 first check is done `
+                  body: commentBody
                 })
-               github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['BotReviewed']
-              })
             } else {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.number,
-                body: `👋 recheck is done 
-                diff is ...
-                ${DIFF_RESULT}
-                `
+                body: `👋 first check is done `
               })
             }
+            
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['BotReviewed']
+              })
