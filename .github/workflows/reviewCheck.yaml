@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{!(github.event.pull_request.draft == true && contains(github.event.pull_request.labels.*.name, 'stop_ci'))}}
     steps:
-      - run: echo this pull request is ready for review by team1
+      - run: echo this pull request is ready for review
 
 # BOT is reviewed ? or review required
   botReviewedChecker:
@@ -50,6 +50,8 @@ jobs:
     needs: botReviewedChecker
     name: frontEnd Checker
     runs-on: ubuntu-latest
+    outputs:
+      outputDiff: ${{ steps.diffFiles.outputs.diffs }}
     steps:
       ## setup for test
       - uses: actions/checkout@v2
@@ -61,7 +63,9 @@ jobs:
             yarn.lock
             .eslintrc
           RELATIVE: 'sandbox'
-      - run: echo ${{ env.GIT_DIFF }}
+      - name: out put diff 
+        id: diffFiles
+        run:  echo "::set-output name=diffs::${{ env.GIT_DIFF }}"    
       
       ## cache yarn
       - uses: actions/setup-node@v2
@@ -145,7 +149,7 @@ jobs:
     steps:
       - uses: actions/github-script@v6
         env: 
-          DIFF_RESULT: ${{ env.GIT_DIFF }}
+          DIFF_RESULT: ${{needs.front.outputs.outputDiff}}
         with:
           script: |
             const { DIFF_RESULT } = process.env
@@ -161,8 +165,6 @@ jobs:
               diff is ...
                ${DIFF_RESULT}
              `
-             console.log(DIFF_RESULT)
-             
             
             if (botComment) {
                 await github.rest.issues.updateComment({
