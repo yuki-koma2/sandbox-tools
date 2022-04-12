@@ -91,7 +91,7 @@ jobs:
       - name: Check code style and lint
         working-directory: sandbox
         run: yarn lint        
-        # Check only source files with differences
+        # Check only source files with differences todo
       - name: strict lint
         working-directory: sandbox
         if: env.GIT_DIFF && !env.MATCHED_FILES
