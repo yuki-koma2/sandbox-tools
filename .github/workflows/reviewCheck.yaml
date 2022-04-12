@@ -40,7 +40,7 @@ jobs:
             configuration-path: ".github/config/labeler.yaml"
             sync-labels: true
 
-# front 
+# front
 ## 余白の管理子コンポーネントに余白がない。
 ## テーマにない色。カラーコードのべた書き
 ## import先、ファイルの置き場所。
@@ -63,17 +63,17 @@ jobs:
             yarn.lock
             .eslintrc
           RELATIVE: 'sandbox'
-      - name: out put diff 
+      - name: out put diff
         id: diffFiles
-        run:  echo "::set-output name=diffs::${{ env.GIT_DIFF }}"    
-      
+        run:  echo "::set-output name=diffs::${{ env.GIT_DIFF }}"
+
       ## cache yarn
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: get yarn cache dir path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"    
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -87,25 +87,25 @@ jobs:
 #         if: env.GIT_DIFF
 
       ## lintがとおること
-      ## format 
+      ## format
       - name: Check code style and lint
         working-directory: sandbox
-        run: yarn lint        
+        run: yarn lint
         # Check only source files with differences todo
       - name: strict lint
         working-directory: sandbox
         if: env.GIT_DIFF && !env.MATCHED_FILES
-        run: yarn lint  ${{ env.GIT_DIFF_FILTERED }}    
+        run: yarn ci-lint --file ${{ env.GIT_DIFF_FILTERED }}
       ## tscが通ること
       - name: tsc
         working-directory: sandbox
         run: yarn tsc
         ## testがとおること
-#       - name: test 
+#       - name: test
 #         working-directory: sandbox
 #         run: yarn test
 # coverageもみたい。
-# 
+#
 
 
 # backend
@@ -113,7 +113,7 @@ jobs:
 ## トランザクション管理
 
 
-# api 
+# api
 ## 互換性チェック。できるのかな…
 ## 命名規則。これはできそう。
 
@@ -150,7 +150,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/github-script@v6
-        env: 
+        env:
           DIFF_RESULT: ${{needs.front.outputs.outputDiff}}
         with:
           script: |
