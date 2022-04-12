@@ -92,8 +92,10 @@ jobs:
         working-directory: sandbox
         run: yarn lint        
         # Check only source files with differences
-#         run: yarn lint ${{ env.GIT_DIFF_FILTERED }}
-#         if: env.GIT_DIFF && !env.MATCHED_FILES
+      - name: strict lint
+        working-directory: sandbox
+        if: env.GIT_DIFF && !env.MATCHED_FILES
+        run: yarn lint  ${{ env.GIT_DIFF_FILTERED }}    
       ## tscが通ること
       - name: tsc
         working-directory: sandbox
