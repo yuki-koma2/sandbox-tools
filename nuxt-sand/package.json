@@ -10,9 +10,14 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare --name nuxt-sandbox-koma2"
+    "postinstall": "nuxt prepare --name nuxt-sandbox-koma2",
+    "storybook": "start-storybook"
   },
   "devDependencies": {
+    "@nuxtjs/storybook": "^4.3.1",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/builder-vite": "^0.4.2",
+    "@storybook/vue3": "^6.5.16",
     "nuxt": "^3.3.1"
   }
 }
