@@ -1,0 +1,18 @@
+{
+  "name": "nuxt-sandbox-koma2",
+  "version": "1.0.0",
+  "description": "My Nuxt.js project for sandbox",
+  "author": "yuki-koma2",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare --name nuxt-sandbox-koma2"
+  },
+  "devDependencies": {
+    "nuxt": "^3.3.1"
+  }
+}
