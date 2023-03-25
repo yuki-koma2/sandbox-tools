@@ -6,5 +6,5 @@ import { DaisyUISampleOrganismsNavigation } from '~~/.nuxt/components';
         <CommonOrganismsNavigation />
       <slot />
     </div>
-  </template>
+</template>
   
