@@ -1,12 +1,12 @@
 module.exports = {
-   theme: {
+  theme: {
     container: {
-      center: true,
-    },
+      center: true
+    }
   },
-    plugins: [
-      require("daisyui"),
-      require('@tailwindcss/forms'),
-      require('@tailwindcss/line-clamp')]
-      ,
-  }
+  plugins: [
+    require('daisyui'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp')]
+
+}

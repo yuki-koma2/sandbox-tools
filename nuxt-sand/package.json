@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare --name nuxt-sandbox-koma2",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
     "@nuxt/devtools": "npm:@nuxt/devtools-edge@^0.2.5-27992993.59d3c52",

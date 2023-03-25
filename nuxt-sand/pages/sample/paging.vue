@@ -1,3 +1,3 @@
 <template>
-    <DaisyUISampleOrganismsPagination />
+  <DaisyUISampleOrganismsPagination />
 </template>

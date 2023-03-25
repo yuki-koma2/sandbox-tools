@@ -1,8 +1,7 @@
 <template>
-    <TailwindSample />
-    <TailwindSampleDarkMode />
-    <TailwindSampleDaisyUi />
-    <TailwindSampleIcons />
-    <DaisyUISampleAtomsGlassButton />
-  </template>
-    
+  <TailwindSample />
+  <TailwindSampleDarkMode />
+  <TailwindSampleDaisyUi />
+  <TailwindSampleIcons />
+  <DaisyUISampleAtomsGlassButton />
+</template>
