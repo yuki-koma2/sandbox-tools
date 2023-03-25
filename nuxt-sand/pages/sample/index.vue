@@ -1,8 +1,9 @@
 <template>
+  <div>
     <TailwindSample />
     <TailwindSampleDarkMode />
     <TailwindSampleDaisyUi />
     <TailwindSampleIcons />
     <DaisyUISampleAtomsGlassButton />
-  </template>
-    
+  </div>
+</template>

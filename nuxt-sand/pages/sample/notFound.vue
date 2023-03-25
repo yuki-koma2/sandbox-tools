@@ -1,3 +1,3 @@
 <template>
-    <DaisyUISampleOrganismsNotFound />
+  <DaisyUISampleOrganismsNotFound />
 </template>
