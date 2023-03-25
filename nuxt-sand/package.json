@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-sandbox-koma2",
+  "version": "1.0.0",
+  "description": "My Nuxt.js project for sandbox",
+  "author": "yuki-koma2",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare --name nuxt-sandbox-koma2"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "npm:@nuxt/devtools-edge@^0.2.5-27992993.59d3c52",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/tailwindcss": "^6.6.4",
+    "nuxt": "^3.3.1"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.12",
+    "@heroicons/vue": "^2.0.16",
+    "@vue-hero-icons/outline": "^1.7.2",
+    "daisyui": "^2.51.5"
+  }
+}
