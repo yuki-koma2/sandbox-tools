@@ -91,6 +91,7 @@
 </template>
 
 <script setup>
+// script setup https://vuejs.org/api/sfc-script-setup.html
 import { ref } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
