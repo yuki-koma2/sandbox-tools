@@ -1,6 +1,3 @@
-
-import { DaisyUISampleOrganismsNavigation } from '~~/.nuxt/components';
-
 <template>
   <div>
     <CommonOrganismsNavigation />
