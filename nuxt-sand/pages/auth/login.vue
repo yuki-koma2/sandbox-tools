@@ -11,7 +11,7 @@
           <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">start your 14-day free trial</a>
         </p>
       </div>
-      <form class="mt-8 space-y-6" action="#">
+      <form class="mt-8 space-y-6" action="#" method="post">
         <input type="hidden" name="remember" value="true">
         <div class="-space-y-px rounded-md shadow-sm">
           <div>
@@ -72,6 +72,10 @@
 
 <script setup>
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
-import useAuth from '~~/composable/useAuth'
 const { signInWithGoogle } = useAuth()
+const { foo } = useFoo()
+// const signInWithGoogle = () => {
+//   console.log('sign in with google')
+// }
+console.log(foo)
 </script>

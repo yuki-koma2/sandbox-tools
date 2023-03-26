@@ -1,7 +1,7 @@
 
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
-const useAuth = () => {
+export const useAuth = () => {
   //   const token = useState<string>('token', () => '')
   //   const auth = getAuth()
   //   auth.languageCode = 'jp'
@@ -117,4 +117,3 @@ const useAuth = () => {
     signUp
   }
 }
-export default useAuth()
