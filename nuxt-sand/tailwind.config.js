@@ -8,5 +8,4 @@ module.exports = {
     require('daisyui'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp')]
-
 }

@@ -19,6 +19,7 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/tailwindcss": "^6.6.4",
+    "@types/node": "^18.15.10",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "eslint": "^8.36.0",
@@ -33,7 +34,12 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.12",
     "@heroicons/vue": "^2.0.16",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@vue-hero-icons/outline": "^1.7.2",
-    "daisyui": "^2.51.5"
+    "daisyui": "^2.51.5",
+    "firebase": "^9.18.0",
+    "firebaseui": "^6.0.2"
   }
 }
