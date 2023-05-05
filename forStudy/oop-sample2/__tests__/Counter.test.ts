@@ -15,4 +15,13 @@ describe('Counter', function () {
         expect(counter1.getCount()).toBe(1);
         expect(counter2.getCount()).toBe(1);
     });
+    test('Counter インスタンスを作成せずにincrementメソッドを呼び出すとエラー', () => {
+        // @ts-ignore
+        expect(() => Counter.increment()).toThrowError();
+    });
+    test('Counterに直接countをセットしようとするとエラー', () => {
+        const counter = new Counter();
+        // @ts-ignore
+        expect(() => counter._count = 100).toThrowError();
+    });
 });
