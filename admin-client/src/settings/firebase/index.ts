@@ -1,0 +1,1 @@
+export { analytics, db, auth, storage } from "@/settings/firebase/client";
