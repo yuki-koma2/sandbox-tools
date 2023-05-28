@@ -1,28 +1,23 @@
-import { Timestamp } from "firebase/firestore";
 import { DatabaseTimestamp } from "@/repository/base/DatabaseTimestamp";
 import { Role } from "@/domain/User";
 import { UserId } from "@/domain/UserId";
+import { ServerTimeStamp } from "@/repository/base/ServerTimeStamp";
 
-class UserCollection {
-    private readonly _createAt: DatabaseTimestamp;
+export class UserCollection {
     private readonly _name: string;
     private readonly _role: Role;
     // firebase authで発行されるuidを使用する
-    private readonly _uid: UserId;
-    private readonly _updateAt: DatabaseTimestamp;
+    private readonly _uid: string;
+    private readonly _createAt: ServerTimeStamp;
+    private readonly _updateAt: ServerTimeStamp;
 
 
-    constructor(createAt: DatabaseTimestamp, name: string, role: Role, uid: UserId, updateAt: DatabaseTimestamp) {
-        this._createAt = createAt;
+    constructor(name: string, role: Role, uid: string, createAt: ServerTimeStamp, updateAt: ServerTimeStamp) {
         this._name = name;
         this._role = role;
         this._uid = uid;
+        this._createAt = createAt;
         this._updateAt = updateAt;
-    }
-
-
-    get createAt(): DatabaseTimestamp {
-        return this._createAt;
     }
 
     get name(): string {
@@ -33,11 +28,8 @@ class UserCollection {
         return this._role;
     }
 
-    get uid(): UserId {
-        return this._uid;
-    }
 
-    get updateAt(): DatabaseTimestamp {
-        return this._updateAt;
+    get uid(): string {
+        return this._uid;
     }
 }

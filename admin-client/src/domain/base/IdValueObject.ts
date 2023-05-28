@@ -11,7 +11,7 @@ export abstract class IdValueObject {
         this._id = id;
     }
 
-    get id(): string {
+    get value(): string {
         return this._id;
     }
 }

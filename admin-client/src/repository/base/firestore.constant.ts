@@ -13,3 +13,8 @@ export const ORDER_BY_DIRECTION = {
     ASC: 'asc',
     DESC: 'desc'
 } as const;
+
+
+export const  FIRESTORE_COLLECTION_NAME = {
+    USER : 'UserCollection',
+} as const;
