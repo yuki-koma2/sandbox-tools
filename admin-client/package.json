@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "firebase": "^9.22.1",
-    "firebase-admin": "^11.8.0",
     "firebase-tools": "^12.2.1"
   }
 }

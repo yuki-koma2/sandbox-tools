@@ -3,7 +3,9 @@ import { Entity } from "@/domain/base/Entity";
 
 export type Role = "admin" | "member";
 
-class User implements Entity<UserId> {
+export type UserType = typeof User;
+
+export class User implements Entity<UserId> {
     private readonly _userId: UserId;
     private readonly _name: string;
     private readonly _role: Role;
