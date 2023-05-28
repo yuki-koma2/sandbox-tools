@@ -1,1 +1,1 @@
-export { analytics, db, auth, storage } from "@/settings/firebase/client";
+export { db, auth, storage } from "@/settings/firebase/client";

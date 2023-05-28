@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import styles from './samplePage.module.css'
-import { AuthProvider } from "@/app/context/AuthProvider";
 import React from "react";
 
 
