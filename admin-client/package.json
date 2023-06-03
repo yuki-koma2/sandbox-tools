@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-
     "firebase:firestore": "firebase emulators:start --only firestore",
     "firebase:emulators": "firebase emulators:start",
     "firebase:emulators:withData": "firebase emulators:start --import=./firestore-export --only firestore",
     "firestore:export": "firebase emulators:export --force ./firestore-export"
   },
   "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.13",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
