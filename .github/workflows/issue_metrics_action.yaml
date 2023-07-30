@@ -48,7 +48,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:repo:yuki-koma2 closed:2023-01-01..2023-07-31 -reason:"not planned"'
+        SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools closed:2023-01-01..2023-07-31 -reason:"not planned"'
 
     - name: Create issue for closed issues and prs
       uses: peter-evans/create-issue-from-file@v4
