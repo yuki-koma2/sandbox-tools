@@ -32,12 +32,41 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools is:issue created:${{ env.last_month }} -reason:"not planned"'
-
+#         SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools is:issue created:2023-01-01..2023-07-31 -reason:"not planned"'
+        
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Monthly issue metrics report
         token: ${{ secrets.GITHUB_TOKEN }}
+        content-filepath: ./issue_metrics.md
+        assignees: yuki-koma2
+        
+    - name: Run issue-metrics tool
+      uses: github/issue-metrics@v2
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools is:pr created:2023-01-01..2023-07-31 -reason:"not planned"'
+        
+    - name: Create issue
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Monthly PR metrics report
+        token: ${{ secrets.GITHUB_TOKEN }}
+        content-filepath: ./issue_metrics.md
+        assignees: yuki-koma2
+
+    
+    - name: Run issue-metrics tool for issues and prs closed
+      uses: github/issue-metrics@v2
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SEARCH_QUERY: 'repo:yuki-koma2/sandbox-tools closed:2023-01-01..2023-07-31 -reason:"not planned"'
+
+    - name: Create issue for closed issues and prs
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Monthly issue metrics report for closed issues and prs
         content-filepath: ./issue_metrics.md
         assignees: yuki-koma2
