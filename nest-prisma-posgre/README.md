@@ -26,7 +26,12 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+これを参考に作成
+https://www.prisma.io/blog/nestjs-prisma-rest-api-7D056s1BmOL0
+
 ## Installation
+
+パッケージ管理ツールはnpmを使用する。
 
 ```bash
 $ npm install
@@ -58,9 +63,40 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Docker
+
+DBの起動
+```bash
+docker-compose up
+```
+
+
+```bash
+docker build -t nest-cloud-run .
+docker run -p80:3000 nest-cloud-run
+```
+    
+
+## prisma
+
+
+
+```
+# migrate
+npx prisma migrate dev --name "init"
+
+# seed
+npx prisma db seed
+```
+
+## nest cli
+リソースの雛形を作ってくれる
+
+```shell
+npx nest generate resource
+```
+
 
 ## Stay in touch
 
