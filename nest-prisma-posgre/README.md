@@ -71,16 +71,27 @@ DBの起動
 docker-compose up
 ```
 
+build
+```shell
+docker build -t nest-cloud-run .
+docker run -p80:3000 nest-cloud-run
+```
+
+
+コンテナ一括で 消したい時
+```bash
+docker rm -f $(docker ps -aq)
+```
 
 ```bash
 docker build -t nest-cloud-run .
 docker run -p80:3000 nest-cloud-run
 ```
+
+ローカルならlocalhostでアクセスできる。
     
 
 ## prisma
-
-
 
 ```
 # migrate
@@ -98,11 +109,7 @@ npx nest generate resource
 ```
 
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
