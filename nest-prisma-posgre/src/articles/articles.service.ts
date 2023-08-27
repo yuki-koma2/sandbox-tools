@@ -2,10 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ArticlesService {
-  constructor(private prisma: PrismaService) {}
+  private port: number;
+  constructor(
+    private prisma: PrismaService,
+    private readonly configService: ConfigService,
+  ) {
+    const port = this.configService.get<number>('port');
+    if (!port) {
+      throw new Error(`Environment variables are missing`);
+    }
+
+    this.port = port;
+  }
   create(createArticleDto: CreateArticleDto) {
     return this.prisma.article.create({ data: createArticleDto });
   }
@@ -31,5 +43,10 @@ export class ArticlesService {
 
   remove(id: number) {
     return this.prisma.article.delete({ where: { id } });
+  }
+
+  // configService example
+  someFunction() {
+    console.log('port', this.port);
   }
 }
