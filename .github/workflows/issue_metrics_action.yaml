@@ -1,8 +1,8 @@
 name: monthly issue metrics
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 8 * * 1'
+#  schedule:
+#    - cron: '0 8 * * 1'
 
 permissions:
   issues: write
